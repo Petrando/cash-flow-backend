@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 
-const categorySchema = new mongoose.Schema({
-	category: {
-		name:String
-	},
+const categorySchema = new mongoose.Schema({	
+	name:String,
 	subCategories:[
 		{
 			name: {

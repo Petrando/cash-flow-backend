@@ -10,8 +10,8 @@ const transactionSchema = new mongoose.Schema({
 			ref: 'Category',
 			required: true
 		},
-		option: {
-			optionId: {
+		subCategory: {
+			subCategoryId: {
 				type: ObjectId,
 				ref: 'Category',
 				required: true	

@@ -11,6 +11,7 @@ const userRoutes = require('./routes/user');
 const braintreeRoutes = require('./routes/braintree');
 const categoryRoutes = require('./routes/category');
 const walletRoutes = require('./routes/wallet');
+const transactionRoutes = require('./routes/transaction');
 const PORT = process.env.PORT || 8000;
 
 const app = express();
@@ -33,6 +34,7 @@ app.use('/api', userRoutes);
 app.use('/api', braintreeRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', walletRoutes);
+app.use('/api', transactionRoutes);
 
 app.listen(PORT, () => {
 	console.log(`Server is running on Port : ${PORT}`);

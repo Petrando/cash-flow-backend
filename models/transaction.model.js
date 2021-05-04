@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const {ObjectId} = mongoose.Schema
 
-const transactionSchema = new mongoose.Schema({
-	date:Date,
+const transactionSchema = new mongoose.Schema({	
 	amount:Number,
+	description:String,
 	category: {
 		categoryId: {
 			type: ObjectId,

@@ -106,6 +106,17 @@ exports.editSubCategory = (req, res) => {
 	});
 }
 
+exports.getTransactionsOfSubCategory = async (req, res) => {
+	const {categoryId, subCategoryId} = req.params;
+
+	try{
+		const transactionCount = await Transaction.countDocuments({ 'category.categoryId':categoryId, 'category.subCategory.subCategoryId':subCategoryId});	
+		res.json({transactionCount});
+	}catch(err){
+		res.status(400).json({message:'Error while counting transactions', error:err});
+	}	
+}
+
 exports.removeSubCategory = (req, res) => {
 	let {category} = req;	
 	

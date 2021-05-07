@@ -226,7 +226,8 @@ function createFilter(filterData){
 }
 
 exports.getWalletGraphData = (req, res) => {
-	const {walletId} = req.params;			
+	const {walletId} = req.params;	
+	const filterObj = createFilter(req.body.filterData)		
 	Category.find((err, categoryData) => {
 		if(err){
 			return res.status(400).json({
@@ -234,7 +235,7 @@ exports.getWalletGraphData = (req, res) => {
 				error: errorHandler(err)
 			})
 		}
-		Transaction.find({ wallet: walletId }, function(transactionErr, transactionData) {
+		Transaction.find({ wallet: walletId, ...filterObj }, function(transactionErr, transactionData) {
 				if(err){
 					return res.status(400).json({
 						message:'error while fetching first batch of transactions....',

@@ -12,7 +12,7 @@ router.delete('/transaction/removeTransaction/:walletToUpdateId/:transactionId',
 router.get('/transaction', listAll);
 router.post('/transaction/byWallet/:walletId/:currentPage', listByWallet_perPage);
 router.post('/transaction/firstBatchByWallet/:walletId', getWalletTransactions_and_categories);
-router.get('/transaction/graphData/:walletId', getWalletGraphData);
+router.post('/transaction/graphData/:walletId', getWalletGraphData);
 
 router.param('transactionId', transactionById);
 router.param('walletToUpdateId', walletById);

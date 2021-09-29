@@ -69,7 +69,7 @@ exports.update = (req, res) => {
 
 exports.addSubCategory = (req, res) => {
 	const {category} = req;
-	
+	console.log(category);
 	category.subCategories.push(req.body);
 	
 	category.save((err, data) => {

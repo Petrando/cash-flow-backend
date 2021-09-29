@@ -10,7 +10,7 @@ router.get('/wallet/:walletId', getAWallet);
 router.get("/wallet/search", listSearch);
 router.get('/wallet/photo/:walletId', photo);
 router.post('/wallet/create/', create);
-router.put('/wallet/update/:walletId', update);
+router.post('/wallet/update/:walletId', update);
 router.delete('/wallet/delete/:walletId', remove);
 router.get('/wallet', listAll);
 //router.get('/products/related/:prodIdNotIncluded/:categoryId/:optionId/:subOptionId/:skip/:limit', listRelated);

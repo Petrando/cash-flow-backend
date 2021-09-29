@@ -92,9 +92,12 @@ exports.update = (req, res) => {
 		}
 		
 		let wallet = req.wallet;
-		wallet = _.extend(wallet, fields)
-				
+		//wallet = _.extend(wallet, fields)
+		wallet.name = name;
+		wallet.balance = balance;
+		
 		if(files.icon){
+			console.log("wallet icon changed");
 			if(files.icon.size > 1000000){
 				return res.status(400).json({
 					error: 'Image must be less than 1MB'
@@ -102,8 +105,11 @@ exports.update = (req, res) => {
 			}
 			wallet.icon.data = fs.readFileSync(files.icon.path);
 			wallet.icon.contentType = files.icon.type;
+
+			console.log(wallet.icon)
 		}
-		
+		console.log(wallet);
+
 		wallet.save((err, data) => {
 			if(err){
 				res.status(400).json({
@@ -243,12 +249,11 @@ function getAllWallets_simple(res){
 
 exports.listAll = (req, res) => {
 	const order = req.query.order?req.query.order:'asc';
-	//const sortBy = req.query.sortBy?req.query.sortBy:'_id';
-	//const limit = req.query.limit?parseInt(req.query.limit):6;	
-	const {skip, limit, sortBy} = req.query;	
-	console.log(req.query);
 	
-	getWalletsPerPage(res, 0, 8, limit, [], 'name');	
+	const {skip, limit, sortBy} = req.query;		
+	
+	//getWalletsPerPage(res, 0, 8, limit, [], 'name');	
+	getAllWallets_simple(res);
 }
 
 /*
@@ -387,28 +392,8 @@ exports.listSearch = (req, res) => {
 
 exports.photo = (req, res, next) => {
 	if(req.wallet.icon.data) {
-		res.set('Content-Type', req.wallet.icon.contentType);
+		//res.set('Content-Type', req.wallet.icon.contentType);
 		return res.send(req.wallet.icon.data);
 	}
 	next();
-}
-
-exports.decreaseQuantity = (req, res, next) => {
-	let bulkOps = req.body.order.products.map((item) => {
-		return {
-			updateOne: {
-				filter: {_id: item._id},
-				update: {$inc: {quantity: -item.count, sold: +item.count}}
-			}
-		}
-	});
-
-	Wallet.bulkWrite(bulkOps, {}, (err, products) => {
-		if(err) {
-			return res.status(400).json({
-				error: "Couldn't update wallet"
-			})
-		}
-		next();
-	});
 }
